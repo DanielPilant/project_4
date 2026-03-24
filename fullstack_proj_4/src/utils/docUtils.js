@@ -11,12 +11,12 @@ let nextId = 1;
 function createDoc(name) {
   return {
     id: nextId++,
-    name: name || 'Untitled',
-    text: '',
-    fontFamily: 'Arial',
+    name: name || "Untitled",
+    text: "",
+    fontFamily: "Arial",
     fontSize: 16,
-    fontColor: '#000000',
-    lang: 'en'
+    fontColor: "#000000",
+    lang: "en",
   };
 }
 

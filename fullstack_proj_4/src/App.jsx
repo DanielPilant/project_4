@@ -17,6 +17,7 @@ import LoginScreen from "./components/Auth/LoginScreen.jsx";
 import Toolbar from "./components/Toolbar/Toolbar.jsx";
 import DocumentTabs from "./components/Tabs/DocumentTabs.jsx";
 import VirtualKeyboard from "./components/Keyboard/VirtualKeyboard.jsx";
+import Header from "./components/Layout/Header.jsx";
 
 // ============================================================
 // App — The root state orchestrator
@@ -269,18 +270,7 @@ function App() {
   return (
     <div className="app">
       {/* Header bar with app title, username, and logout button */}
-      <div className="header-bar">
-        <span>Visual Text Editor</span>
-        <span>
-          User: {user}
-          <button
-            onClick={handleLogout}
-            style={{ marginLeft: 8, color: "#000" }}
-          >
-            Logout
-          </button>
-        </span>
-      </div>
+      <Header user={user} onLogout={handleLogout} />
 
       {/* Toolbar: font controls, undo, find/replace, file operations */}
       <Toolbar
