@@ -1,22 +1,22 @@
-import { useState } from 'react';
-import './App.css';
+import { useState } from "react";
+import "./App.css";
 
 // Utility imports — pure JS helpers, no React
-import { createDoc } from './utils/docUtils.js';
+import { createDoc } from "./utils/docUtils.js";
 import {
   saveCurrentUser,
   loadCurrentUser,
   clearCurrentUser,
   getSavedFiles,
   saveDocToStorage,
-  loadDocFromStorage
-} from './utils/storageUtils.js';
+  loadDocFromStorage,
+} from "./utils/storageUtils.js";
 
 // Component imports — each in its own folder by responsibility
-import LoginScreen from './components/Auth/LoginScreen.jsx';
-import Toolbar from './components/Toolbar/Toolbar.jsx';
-import DocumentTabs from './components/Tabs/DocumentTabs.jsx';
-import VirtualKeyboard from './components/Keyboard/VirtualKeyboard.jsx';
+import LoginScreen from "./components/Auth/LoginScreen.jsx";
+import Toolbar from "./components/Toolbar/Toolbar.jsx";
+import DocumentTabs from "./components/Tabs/DocumentTabs.jsx";
+import VirtualKeyboard from "./components/Keyboard/VirtualKeyboard.jsx";
 
 // ============================================================
 // App — The root state orchestrator
@@ -31,10 +31,12 @@ function App() {
 
   // --- Part C: Multi-document state ---
   // Array of open document objects; starts with one blank document
-  const [documents, setDocuments] = useState(() => [createDoc('Untitled')]);
+  const [documents, setDocuments] = useState(() => [createDoc("Untitled")]);
 
   // ID of the currently focused/active document
-  const [activeDocId, setActiveDocId] = useState(() => documents[0]?.id || null);
+  const [activeDocId, setActiveDocId] = useState(
+    () => documents[0]?.id || null,
+  );
 
   // Undo history: { [docId]: [previousTextString, ...] }
   const [undoHistory, setUndoHistory] = useState({});
@@ -54,9 +56,9 @@ function App() {
 
   const handleLogout = () => {
     clearCurrentUser();
-    setUser('');
+    setUser("");
     // Reset to a clean slate
-    const fresh = createDoc('Untitled');
+    const fresh = createDoc("Untitled");
     setDocuments([fresh]);
     setActiveDocId(fresh.id);
     setUndoHistory({});
@@ -80,12 +82,12 @@ function App() {
           // Snapshot current text before the mutation
           setUndoHistory((h) => ({
             ...h,
-            [doc.id]: [...(h[doc.id] || []), doc.text]
+            [doc.id]: [...(h[doc.id] || []), doc.text],
           }));
         }
         // Merge the fields returned by the updater into the doc
         return { ...doc, ...updater(doc) };
-      })
+      }),
     );
   };
 
@@ -101,7 +103,7 @@ function App() {
 
   const handleSpace = () => {
     if (!activeDoc) return;
-    updateActiveDoc((doc) => ({ text: doc.text + ' ' }), true);
+    updateActiveDoc((doc) => ({ text: doc.text + " " }), true);
   };
 
   const handleDeleteChar = () => {
@@ -114,14 +116,14 @@ function App() {
     updateActiveDoc((doc) => {
       // Trim trailing spaces, then remove the last word
       const trimmed = doc.text.trimEnd();
-      const lastSpace = trimmed.lastIndexOf(' ');
-      return { text: lastSpace === -1 ? '' : trimmed.slice(0, lastSpace + 1) };
+      const lastSpace = trimmed.lastIndexOf(" ");
+      return { text: lastSpace === -1 ? "" : trimmed.slice(0, lastSpace + 1) };
     }, true);
   };
 
   const handleDeleteAll = () => {
     if (!activeDoc) return;
-    updateActiveDoc(() => ({ text: '' }), true);
+    updateActiveDoc(() => ({ text: "" }), true);
   };
 
   // =============================================================
@@ -136,13 +138,13 @@ function App() {
     // Pop the last entry off the undo stack
     setUndoHistory((h) => ({
       ...h,
-      [activeDoc.id]: stack.slice(0, -1)
+      [activeDoc.id]: stack.slice(0, -1),
     }));
     // Restore the text directly (do NOT push to undo again)
     setDocuments((prev) =>
       prev.map((doc) =>
-        doc.id === activeDoc.id ? { ...doc, text: previousText } : doc
-      )
+        doc.id === activeDoc.id ? { ...doc, text: previousText } : doc,
+      ),
     );
   };
 
@@ -152,7 +154,10 @@ function App() {
 
   const handleChangeLang = () => {
     if (!activeDoc) return;
-    updateActiveDoc((doc) => ({ lang: doc.lang === 'en' ? 'he' : 'en' }), false);
+    updateActiveDoc(
+      (doc) => ({ lang: doc.lang === "en" ? "he" : "en" }),
+      false,
+    );
   };
 
   const handleChangeFont = (fontFamily) => {
@@ -173,9 +178,12 @@ function App() {
 
   const handleFindReplace = (find, replace) => {
     if (!activeDoc || !find) return;
-    updateActiveDoc((doc) => ({
-      text: doc.text.split(find).join(replace)
-    }), true);
+    updateActiveDoc(
+      (doc) => ({
+        text: doc.text.split(find).join(replace),
+      }),
+      true,
+    );
   };
 
   // =============================================================
@@ -185,37 +193,35 @@ function App() {
   const handleSave = () => {
     if (!activeDoc) return;
     saveDocToStorage(user, activeDoc.name, activeDoc);
-    alert('Saved: ' + activeDoc.name);
+    alert("Saved: " + activeDoc.name);
   };
 
   const handleSaveAs = () => {
-    const name = prompt('Enter file name:');
+    const name = prompt("Enter file name:");
     if (!name) return;
     // Rename the active document in state
     setDocuments((prev) =>
-      prev.map((doc) =>
-        doc.id === activeDocId ? { ...doc, name } : doc
-      )
+      prev.map((doc) => (doc.id === activeDocId ? { ...doc, name } : doc)),
     );
     // Persist to localStorage under the new name
     saveDocToStorage(user, name, activeDoc);
-    alert('Saved as: ' + name);
+    alert("Saved as: " + name);
   };
 
   const handleOpen = (fileName) => {
     const data = loadDocFromStorage(user, fileName);
     if (!data) {
-      alert('File not found.');
+      alert("File not found.");
       return;
     }
     // Create a new document tab populated with the loaded data
     const newDoc = {
       ...createDoc(fileName),
-      text: data.text || '',
-      fontFamily: data.fontFamily || 'Arial',
+      text: data.text || "",
+      fontFamily: data.fontFamily || "Arial",
       fontSize: data.fontSize || 16,
-      fontColor: data.fontColor || '#000000',
-      lang: data.lang || 'en'
+      fontColor: data.fontColor || "#000000",
+      lang: data.lang || "en",
     };
     setDocuments((prev) => [...prev, newDoc]);
     setActiveDocId(newDoc.id);
@@ -226,7 +232,7 @@ function App() {
   // =============================================================
 
   const handleNew = () => {
-    const newDoc = createDoc('Untitled');
+    const newDoc = createDoc("Untitled");
     setDocuments((prev) => [...prev, newDoc]);
     setActiveDocId(newDoc.id);
   };
@@ -244,7 +250,7 @@ function App() {
     const remaining = documents.filter((d) => d.id !== docId);
     if (remaining.length === 0) {
       // Always keep at least one document open
-      const fresh = createDoc('Untitled');
+      const fresh = createDoc("Untitled");
       setDocuments([fresh]);
       setActiveDocId(fresh.id);
     } else {
@@ -267,7 +273,10 @@ function App() {
         <span>Visual Text Editor</span>
         <span>
           User: {user}
-          <button onClick={handleLogout} style={{ marginLeft: 8, color: '#000' }}>
+          <button
+            onClick={handleLogout}
+            style={{ marginLeft: 8, color: "#000" }}
+          >
             Logout
           </button>
         </span>
@@ -299,7 +308,7 @@ function App() {
 
       {/* Shared virtual keyboard: types into whichever document is active */}
       <VirtualKeyboard
-        lang={activeDoc ? activeDoc.lang : 'en'}
+        lang={activeDoc ? activeDoc.lang : "en"}
         onKeyPress={handleKeyPress}
         onSpace={handleSpace}
         onDeleteChar={handleDeleteChar}
