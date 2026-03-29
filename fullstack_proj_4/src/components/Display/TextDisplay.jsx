@@ -9,20 +9,20 @@ function TextDisplay({ doc, isActive, onFocus }) {
   // Build inline styles from the document's font settings
   const textStyle = {
     fontFamily: doc.fontFamily,
-    fontSize: doc.fontSize + 'px',
+    fontSize: doc.fontSize + "px",
     color: doc.fontColor,
     // Switch to right-to-left when the language is Hebrew
-    direction: doc.lang === 'he' ? 'rtl' : 'ltr'
+    direction: doc.lang === "he" ? "rtl" : "ltr",
   };
 
   return (
     <div
-      className={'doc-panel' + (isActive ? ' active' : '')}
+      className={"doc-panel" + (isActive ? " active" : "")}
       onClick={onFocus}
     >
       {/* The visible formatted text area */}
       <div className="text-display" style={textStyle}>
-        {doc.text || '(empty)'}
+        {doc.text || "(empty)"}
       </div>
     </div>
   );

@@ -7,10 +7,7 @@
 // ============================================================
 function Key({ label, onClick, wide }) {
   return (
-    <button
-      className={wide ? 'wide' : ''}
-      onClick={onClick}
-    >
+    <button className={wide ? "wide" : ""} onClick={onClick}>
       {label}
     </button>
   );

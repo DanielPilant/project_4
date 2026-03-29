@@ -74,6 +74,8 @@ function App() {
   // DOCUMENT UPDATE HELPER
   // Central function that updates the active document's fields.
   // If pushUndo is true, saves the current text to the undo stack first.
+  // Used by all the keyboard action handlers to mutate the document text,
+  // and also by the font/language handlers to update those settings.
   // =============================================================
   const updateActiveDoc = (updater, pushUndo) => {
     setDocuments((prev) =>
