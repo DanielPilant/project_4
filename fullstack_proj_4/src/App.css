@@ -17,7 +17,8 @@
   margin-right: 4px;
   font-size: 13px;
 }
-.toolbar select, .toolbar input {
+.toolbar select,
+.toolbar input {
   padding: 2px 4px;
   margin-right: 4px;
 }
