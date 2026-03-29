@@ -155,13 +155,27 @@ function App() {
 
   const handleChangeLang = () => {
     if (!activeDoc) return;
-    updateActiveDoc(
-      (doc) => ({ lang: doc.lang === "en" ? "he" : "en" }),
-      false,
-    );
+    updateActiveDoc((doc) => {
+      let lang = doc.lang;
+      switch (doc.lang) {
+        case "en":
+          lang = "he";
+          break;
+        case "he":
+          lang = "em";
+          break;
+        case "em":
+          lang = "en";
+          break;
+        default:
+          lang = "en";
+      }
+      return { lang };
+    }, false);
   };
 
   const handleChangeFont = (fontFamily) => {
+    if (activeDoc && activeDoc.lang === "em") return; // Don't allow font changes in emoji mode
     updateActiveDoc(() => ({ fontFamily }), false);
   };
 
