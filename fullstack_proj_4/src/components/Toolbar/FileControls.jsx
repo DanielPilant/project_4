@@ -11,7 +11,6 @@ import { useState } from 'react';
 //   savedFiles  – array of file name strings available to open
 // ============================================================
 function FileControls({ onNew, onSave, onSaveAs, onOpen, savedFiles }) {
-  // Local state: which file the user has selected in the dropdown
   const [selectedFile, setSelectedFile] = useState('');
 
   return (
@@ -20,15 +19,21 @@ function FileControls({ onNew, onSave, onSaveAs, onOpen, savedFiles }) {
       <button onClick={onSave}>Save</button>
       <button onClick={onSaveAs}>Save As</button>
 
-      {/* Dropdown listing all saved files for the current user */}
+      {/* Select input to choose an existing file to open */}
       <select value={selectedFile} onChange={(e) => setSelectedFile(e.target.value)}>
         <option value="">-- Select File --</option>
         {savedFiles.map((f) => (
           <option key={f} value={f}>{f}</option>
         ))}
       </select>
-      {/* Open button — only fires if a file is actually selected */}
-      <button onClick={() => { if (selectedFile) onOpen(selectedFile); }}>Open</button>
+      
+      {/* Button is disabled naturally if no file is selected */}
+      <button 
+        disabled={!selectedFile} 
+        onClick={() => onOpen(selectedFile)}
+      >
+        Open
+      </button>
     </div>
   );
 }

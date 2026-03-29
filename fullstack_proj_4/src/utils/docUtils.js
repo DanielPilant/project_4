@@ -4,13 +4,15 @@
 // Uses a module-level counter to guarantee unique IDs.
 // ============================================================
 
-// Auto-incrementing ID counter (module-scoped, survives re-renders)
-let nextId = 1;
+// Generate a basic unique string identifier
+function generateId() {
+  return Date.now().toString(36) + Math.random().toString(36).substring(2);
+}
 
-// Create and return a new document object with sensible defaults
+// Create and return a new document object with default properties
 function createDoc(name) {
   return {
-    id: nextId++,
+    id: generateId(),
     name: name || "Untitled",
     text: "",
     fontFamily: "Arial",
