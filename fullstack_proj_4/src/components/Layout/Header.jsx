@@ -1,4 +1,4 @@
-function header({ user, onLogout }) {
+function Header({ user, onLogout }) {
   return (
     <div className="header-bar">
       <span>Visual Text Editor</span>
@@ -12,4 +12,4 @@ function header({ user, onLogout }) {
   );
 }
 
-export default header;
+export default Header;

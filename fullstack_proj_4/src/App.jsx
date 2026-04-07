@@ -10,6 +10,7 @@ import {
   getSavedFiles,
   saveDocToStorage,
   loadDocFromStorage,
+  deleteDocFromStorage
 } from "./utils/storageUtils.js";
 
 // Component imports — each in its own folder by responsibility
@@ -244,6 +245,25 @@ function App() {
     setActiveDocId(newDoc.id);
   };
 
+  const handleDelete = (fileName) => {
+    const shouldDelete = confirm(`Are you sure you want to delete "${fileName}"?`);
+    if (shouldDelete) {
+      deleteDocFromStorage(user, fileName);
+      setDocuments((prev) => {
+        const remaining = prev.filter((doc) => doc.name !== fileName);
+        if (remaining.length === 0) {
+          const fresh = createDoc("Untitled");
+          setActiveDocId(fresh.id);
+          return [fresh];
+        }
+        if (activeDocId === prev.find(d => d.name === fileName)?.id) {
+          setActiveDocId(remaining[0].id);
+        }
+        return remaining;
+      });
+    }
+  };
+
   // =============================================================
   // MULTI-DOCUMENT HANDLERS
   // =============================================================
@@ -301,6 +321,7 @@ function App() {
         onSaveAs={handleSaveAs}
         onOpen={handleOpen}
         onNew={handleNew}
+        onDelete={handleDelete}
         savedFiles={savedFiles}
       />
 

@@ -63,9 +63,16 @@ function saveDocToStorage(username, fileName, doc) {
   
   try {
     localStorage.setItem(key, JSON.stringify(data));
-  } catch (error) {
-    console.error(error);
+    return true;
+  } catch {
+    alert("Error saving file. Storage might be full.");
+    return false;
   }
+}
+
+function deleteDocFromStorage(username, fileName) {
+  const key = userKey(username) + fileName;
+  localStorage.removeItem(key);
 }
 
 function loadDocFromStorage(username, fileName) {
@@ -89,5 +96,6 @@ export {
   clearCurrentUser,
   getSavedFiles,
   saveDocToStorage,
-  loadDocFromStorage
+  loadDocFromStorage,
+  deleteDocFromStorage
 };

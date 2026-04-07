@@ -24,10 +24,10 @@ function AuthScreen({ onLogin }) {
       return;
     }
 
-    const isValid = /^[a-zA-Z0-9א-ת]+$/.test(cleanName);
+    const isValid = /^[a-zA-Z0-9א-ת_]+$/.test(cleanName);
     
     if (!isValid) {
-      setError('Username can only contain letters and numbers.');
+      setError('Username can only contain letters, numbers and underscores.');
       return;
     }
 
@@ -41,7 +41,6 @@ function AuthScreen({ onLogin }) {
     } else {
       const result = registerUser(cleanName, cleanPassword);
       if (result.success) {
-        authenticateUser(cleanName, cleanPassword);
         onLogin(cleanName);
       } else {
         setError(result.message);

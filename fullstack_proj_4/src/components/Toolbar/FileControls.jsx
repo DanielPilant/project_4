@@ -10,7 +10,7 @@ import { useState } from 'react';
 //   onOpen      – callback(fileName) to open a saved file
 //   savedFiles  – array of file name strings available to open
 // ============================================================
-function FileControls({ onNew, onSave, onSaveAs, onOpen, savedFiles }) {
+function FileControls({ onNew, onSave, onSaveAs, onOpen, onDelete, savedFiles }) {
   const [selectedFile, setSelectedFile] = useState('');
 
   return (
@@ -19,7 +19,6 @@ function FileControls({ onNew, onSave, onSaveAs, onOpen, savedFiles }) {
       <button onClick={onSave}>Save</button>
       <button onClick={onSaveAs}>Save As</button>
 
-      {/* Select input to choose an existing file to open */}
       <select value={selectedFile} onChange={(e) => setSelectedFile(e.target.value)}>
         <option value="">-- Select File --</option>
         {savedFiles.map((f) => (
@@ -27,12 +26,21 @@ function FileControls({ onNew, onSave, onSaveAs, onOpen, savedFiles }) {
         ))}
       </select>
       
-      {/* Button is disabled naturally if no file is selected */}
       <button 
         disabled={!selectedFile} 
         onClick={() => onOpen(selectedFile)}
       >
         Open
+      </button>
+
+      <button 
+        disabled={!selectedFile} 
+        onClick={() => {
+          onDelete(selectedFile);
+          setSelectedFile('');
+        }}
+      >
+        Delete
       </button>
     </div>
   );

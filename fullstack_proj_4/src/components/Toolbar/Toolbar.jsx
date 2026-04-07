@@ -11,7 +11,7 @@ import FileControls from './FileControls.jsx';
 //   onNew, onSave, onSaveAs, onOpen, savedFiles
 // ============================================================
 function Toolbar({
-  activeDoc,
+activeDoc,
   onChangeLang,
   onChangeFont,
   onChangeFontSize,
@@ -22,6 +22,7 @@ function Toolbar({
   onSaveAs,
   onOpen,
   onNew,
+  onDelete,
   savedFiles
 }) {
   return (
@@ -47,6 +48,7 @@ function Toolbar({
         onSave={onSave}
         onSaveAs={onSaveAs}
         onOpen={onOpen}
+        onDelete={onDelete}
         savedFiles={savedFiles}
       />
     </div>

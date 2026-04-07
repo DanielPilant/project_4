@@ -27,6 +27,8 @@
   flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 8px;
+  overflow-y: auto;
+  max-height: 55vh;
 }
 .doc-panel {
   border: 2px solid #999;
@@ -64,6 +66,10 @@
   padding: 8px;
   background: #e0e0e0;
   border: 1px solid #999;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.05);
 }
 .keyboard button {
   min-width: 30px;
