@@ -13,7 +13,7 @@ import {
 } from "./utils/storageUtils.js";
 
 // Component imports — each in its own folder by responsibility
-import LoginScreen from "./components/Auth/LoginScreen.jsx";
+import AuthScreen from "./components/Auth/AuthScreen.jsx";
 import Toolbar from "./components/Toolbar/Toolbar.jsx";
 import DocumentTabs from "./components/Tabs/DocumentTabs.jsx";
 import VirtualKeyboard from "./components/Keyboard/VirtualKeyboard.jsx";
@@ -67,7 +67,7 @@ function App() {
 
   // Gate: if no user is logged in, render only the login screen
   if (!user) {
-    return <LoginScreen onLogin={handleLogin} />;
+    return <AuthScreen onLogin={handleLogin} />;
   }
 
   // =============================================================
