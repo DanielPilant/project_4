@@ -22,7 +22,7 @@ function TextDisplay({ doc, isActive, onFocus }) {
     >
       {/* The visible formatted text area */}
       <div className="text-display" style={textStyle}>
-        {doc.text || "(empty)"}
+        {doc.text || (doc.lang === "he" ? "(טקסט לדוגמה)" : "(Sample text)")}
       </div>
     </div>
   );
