@@ -1,0 +1,23 @@
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 14px 18px 16px;
+  background: linear-gradient(180deg, #c8cdd6 0%, #b8bec9 100%);
+  border-top: 1px solid #a0a8b8;
+  border-radius: 14px 14px 0 0;
+
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  box-shadow:
+    0 -4px 16px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}

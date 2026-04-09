@@ -1,3 +1,5 @@
+import styles from "./Key.module.css";
+
 // ============================================================
 // Key — A single virtual keyboard button
 // Props:
@@ -7,7 +9,10 @@
 // ============================================================
 function Key({ label, onClick, wide }) {
   return (
-    <button className={wide ? "wide" : ""} onClick={onClick}>
+    <button
+      className={`${styles.key}${wide ? ` ${styles.wide}` : ""}`}
+      onClick={onClick}
+    >
       {label}
     </button>
   );

@@ -59,26 +59,6 @@
   background: #fafafa;
   cursor: text;
 }
-.keyboard {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2px;
-  padding: 8px;
-  background: #e0e0e0;
-  border: 1px solid #999;
-  position: sticky;
-  bottom: 0;
-  z-index: 100;
-  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.05);
-}
-.keyboard button {
-  min-width: 30px;
-  min-height: 30px;
-  font-size: 14px;
-}
-.keyboard button.wide {
-  min-width: 60px;
-}
 .find-replace {
   display: flex;
   align-items: center;

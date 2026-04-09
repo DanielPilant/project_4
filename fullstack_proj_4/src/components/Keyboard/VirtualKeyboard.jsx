@@ -1,3 +1,4 @@
+import styles from "./VirtualKeyboard.module.css";
 import Key from "./Key.jsx";
 
 // English keyboard layout — each sub-array is one row
@@ -72,7 +73,7 @@ function VirtualKeyboard({
   onDeleteAll,
 }) {
   // Choose the correct layout based on the active language
-  let rows; // Default to English
+  let rows;
   switch (lang) {
     case "en":
       rows = EN_ROWS;
@@ -81,14 +82,15 @@ function VirtualKeyboard({
       rows = HE_ROWS;
       break;
     case "em":
-      rows = EMOJI_ROWS; // Fallback to English if unknown
+      rows = EMOJI_ROWS;
+      break;
   }
 
   return (
-    <div className="keyboard">
+    <div className={styles.keyboard}>
       {/* Render character key rows */}
       {rows.map((row, i) => (
-        <div key={i} style={{ display: "flex", gap: "2px", width: "100%" }}>
+        <div key={i} className={styles.row}>
           {row.map((keyChar) => (
             <Key
               key={keyChar}
@@ -99,15 +101,16 @@ function VirtualKeyboard({
         </div>
       ))}
 
-      <div style={{ display: "flex", gap: "2px", width: "100%" }}>
+      {/* Special action row */}
+      <div className={styles.row}>
         <Key label="Space" onClick={onSpace} wide />
         <Key label="." onClick={() => onKeyPress(".")} />
         <Key label="," onClick={() => onKeyPress(",")} />
         <Key label="!" onClick={() => onKeyPress("!")} />
         <Key label="?" onClick={() => onKeyPress("?")} />
         <Key label="Del" onClick={onDeleteChar} />
-        <Key label="Del Word" onClick={onDeleteWord} />
-        <Key label="Del All" onClick={onDeleteAll} />
+        <Key label="Del Word" onClick={onDeleteWord} wide />
+        <Key label="Del All" onClick={onDeleteAll} wide />
       </div>
     </div>
   );
