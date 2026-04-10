@@ -1,14 +1,22 @@
 import styles from "./VirtualKeyboard.module.css";
 import Key from "./Key.jsx";
+import { useState } from "react";
 
 const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 
 // English keyboard layout — each sub-array is one row
-const EN_ROWS = [
+const EN_LOW_ROWS = [
   [...numbers],
   ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
   ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
   ["z", "x", "c", "v", "b", "n", "m"],
+];
+
+const EN_UP_ROWS = [
+  ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")"],
+  ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
+  ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
+  ["Z", "X", "C", "V", "B", "N", "M"],
 ];
 
 // Hebrew keyboard layout — same structure, Hebrew characters
@@ -74,11 +82,14 @@ function VirtualKeyboard({
   onDeleteWord,
   onDeleteAll,
 }) {
+  // Local state to track whether Shift is active (for uppercase or symbols)
+  const [isShift, setIsShift] = useState(false);
+
   // Choose the correct layout based on the active language
   let rows;
   switch (lang) {
     case "en":
-      rows = EN_ROWS;
+      rows = isShift ? EN_UP_ROWS : EN_LOW_ROWS;
       break;
     case "he":
       rows = HE_ROWS;
@@ -99,6 +110,13 @@ function VirtualKeyboard({
         <Key label="Del" onClick={onDeleteChar} />
         <Key label="Del Word" onClick={onDeleteWord} wide />
         <Key label="Del All" onClick={onDeleteAll} wide />
+        <Key
+          label="Shift"
+          onClick={() => {
+            setIsShift(!isShift);
+          }}
+          wide
+        />
       </div>
 
       {/* Render character key rows */}
