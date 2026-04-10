@@ -21,7 +21,10 @@
     0 3px 0 #a0a0a0,
     0 4px 6px rgba(0, 0, 0, 0.25);
 
-  transition: transform 0.06s ease, box-shadow 0.06s ease, background 0.06s ease;
+  transition:
+    transform 0.06s ease,
+    box-shadow 0.06s ease,
+    background 0.06s ease;
   user-select: none;
 }
 
@@ -43,6 +46,13 @@
 
 .wide {
   width: 90px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.space_wide {
+  width: 200px;
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.02em;

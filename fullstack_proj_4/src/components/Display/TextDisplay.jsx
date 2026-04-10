@@ -6,13 +6,14 @@
 //   onFocus  – callback fired when the user clicks this panel
 // ============================================================
 function TextDisplay({ doc, isActive, onFocus }) {
+  // Split the document's text into lines at newline characters
+  let lines = doc.text.split("\n");
+
   // Build inline styles from the document's font settings
   const textStyle = {
     fontFamily: doc.fontFamily,
     fontSize: doc.fontSize + "px",
     color: doc.fontColor,
-    // Switch to right-to-left when the language is Hebrew
-    direction: doc.lang === "he" ? "rtl" : "ltr",
   };
 
   return (
@@ -21,8 +22,12 @@ function TextDisplay({ doc, isActive, onFocus }) {
       onClick={onFocus}
     >
       {/* The visible formatted text area */}
-      <div className="text-display" style={textStyle}>
-        {doc.text || (doc.lang === "he" ? "(טקסט לדוגמה)" : "(Sample text)")}
+      <div className="text-area" style={textStyle}>
+        {lines.map((line, i) => (
+          <div key={i} dir="auto">
+            {line}
+          </div>
+        ))}
       </div>
     </div>
   );

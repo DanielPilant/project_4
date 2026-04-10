@@ -1,9 +1,11 @@
 import styles from "./VirtualKeyboard.module.css";
 import Key from "./Key.jsx";
 
+const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+
 // English keyboard layout — each sub-array is one row
 const EN_ROWS = [
-  ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+  [...numbers],
   ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
   ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
   ["z", "x", "c", "v", "b", "n", "m"],
@@ -11,7 +13,7 @@ const EN_ROWS = [
 
 // Hebrew keyboard layout — same structure, Hebrew characters
 const HE_ROWS = [
-  ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"],
+  [...numbers],
   [
     "\u05E7",
     "\u05E8",
@@ -88,6 +90,17 @@ function VirtualKeyboard({
 
   return (
     <div className={styles.keyboard}>
+      {/* Special action row */}
+      <div className={styles.row}>
+        <Key label="." onClick={() => onKeyPress(".")} />
+        <Key label="," onClick={() => onKeyPress(",")} />
+        <Key label="!" onClick={() => onKeyPress("!")} />
+        <Key label="?" onClick={() => onKeyPress("?")} />
+        <Key label="Del" onClick={onDeleteChar} />
+        <Key label="Del Word" onClick={onDeleteWord} wide />
+        <Key label="Del All" onClick={onDeleteAll} wide />
+      </div>
+
       {/* Render character key rows */}
       {rows.map((row, i) => (
         <div key={i} className={styles.row}>
@@ -101,16 +114,10 @@ function VirtualKeyboard({
         </div>
       ))}
 
-      {/* Special action row */}
+      {/* space and enter */}
       <div className={styles.row}>
         <Key label="Space" onClick={onSpace} wide />
-        <Key label="." onClick={() => onKeyPress(".")} />
-        <Key label="," onClick={() => onKeyPress(",")} />
-        <Key label="!" onClick={() => onKeyPress("!")} />
-        <Key label="?" onClick={() => onKeyPress("?")} />
-        <Key label="Del" onClick={onDeleteChar} />
-        <Key label="Del Word" onClick={onDeleteWord} wide />
-        <Key label="Del All" onClick={onDeleteAll} wide />
+        <Key label="Enter" onClick={() => onKeyPress("\n")} wide />
       </div>
     </div>
   );
