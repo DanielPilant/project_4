@@ -10,15 +10,15 @@ import {
   getSavedFiles,
   saveDocToStorage,
   loadDocFromStorage,
-  deleteDocFromStorage
+  deleteDocFromStorage,
 } from "./utils/storageUtils.js";
 
 // Component imports — each in its own folder by responsibility
 import AuthScreen from "./components/Auth/AuthScreen.jsx";
+import Header from "./components/Layout/Header.jsx";
 import Toolbar from "./components/Toolbar/Toolbar.jsx";
 import DocumentTabs from "./components/Tabs/DocumentTabs.jsx";
 import VirtualKeyboard from "./components/Keyboard/VirtualKeyboard.jsx";
-import Header from "./components/Layout/Header.jsx";
 
 // ============================================================
 // App — The root state orchestrator
@@ -27,6 +27,8 @@ import Header from "./components/Layout/Header.jsx";
 // No useEffect, no useContext, no custom hooks — only useState.
 // ============================================================
 function App() {
+  //#region State Initialization and Derived Values
+
   // --- Part D: Authentication state ---
   // Initialize from localStorage so the user stays logged in across refreshes
   const [user, setUser] = useState(() => loadCurrentUser());
@@ -47,9 +49,9 @@ function App() {
   const activeDoc = documents.find((d) => d.id === activeDocId) || null;
   const savedFiles = user ? getSavedFiles(user) : [];
 
-  // =============================================================
-  // LOGIN / LOGOUT HANDLERS
-  // =============================================================
+  //#endregion
+
+  //#region LOGIN / LOGOUT HANDLERS
 
   const handleLogin = (username) => {
     saveCurrentUser(username);
@@ -71,6 +73,8 @@ function App() {
     return <AuthScreen onLogin={handleLogin} />;
   }
 
+  //#endregion
+
   // =============================================================
   // DOCUMENT UPDATE HELPER
   // Central function that updates the active document's fields.
@@ -78,22 +82,30 @@ function App() {
   // Used by all the keyboard action handlers to mutate the document text,
   // and also by the font/language handlers to update those settings.
   // =============================================================
+  //#region Document Update Helper
   const updateActiveDoc = (updater, pushUndo) => {
     setDocuments((prev) =>
       prev.map((doc) => {
         if (doc.id !== activeDocId) return doc;
         if (pushUndo) {
           // Snapshot current text before the mutation
-          setUndoHistory((h) => ({
-            ...h,
-            [doc.id]: [...(h[doc.id] || []), doc.text],
-          }));
+          setUndoHistory((history) => {
+            // Get the existing undo stack for this document, or start a new one if it doesn't exist
+            let stack = [...(history[doc.id] || [])];
+
+            stack.push(doc.text);
+
+            let newFullHistory = { ...history, [doc.id]: stack };
+
+            return newFullHistory;
+          });
         }
         // Merge the fields returned by the updater into the doc
         return { ...doc, ...updater(doc) };
       }),
     );
   };
+  //#endregion
 
   // =============================================================
   // KEYBOARD ACTION HANDLERS
@@ -140,8 +152,8 @@ function App() {
     if (stack.length === 0) return;
     const previousText = stack[stack.length - 1];
     // Pop the last entry off the undo stack
-    setUndoHistory((h) => ({
-      ...h,
+    setUndoHistory((history) => ({
+      ...history,
       [activeDoc.id]: stack.slice(0, -1),
     }));
     // Restore the text directly (do NOT push to undo again)
@@ -246,7 +258,9 @@ function App() {
   };
 
   const handleDelete = (fileName) => {
-    const shouldDelete = confirm(`Are you sure you want to delete "${fileName}"?`);
+    const shouldDelete = confirm(
+      `Are you sure you want to delete "${fileName}"?`,
+    );
     if (shouldDelete) {
       deleteDocFromStorage(user, fileName);
       setDocuments((prev) => {
@@ -256,7 +270,7 @@ function App() {
           setActiveDocId(fresh.id);
           return [fresh];
         }
-        if (activeDocId === prev.find(d => d.name === fileName)?.id) {
+        if (activeDocId === prev.find((d) => d.name === fileName)?.id) {
           setActiveDocId(remaining[0].id);
         }
         return remaining;
