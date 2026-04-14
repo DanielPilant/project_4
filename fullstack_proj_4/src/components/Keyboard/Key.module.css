@@ -29,28 +29,28 @@
 }
 
 .key:hover {
-  background: linear-gradient(180deg, #f0f4ff 0%, #dde4f5 100%);
+  background: linear-gradient(180deg, #ede9fe 0%, #ddd6fe 100%);
   box-shadow:
-    0 1px 0 #9aaad0,
-    0 3px 0 #8899c0,
-    0 4px 8px rgba(0, 0, 0, 0.3);
+    0 1px 0 #9c7ae0,
+    0 3px 0 #8b68cc,
+    0 4px 8px rgba(109, 40, 217, 0.25);
 }
 
 .key:active {
   transform: translateY(3px);
-  background: linear-gradient(180deg, #dde4f5 0%, #c8d0e8 100%);
+  background: linear-gradient(180deg, #ddd6fe 0%, #c4b5fd 100%);
   box-shadow:
-    0 0 0 #8899c0,
+    0 0 0 #8b68cc,
     0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 /* Toggled-on state (e.g. Shift active) */
 .active {
   transform: translateY(3px);
-  background: linear-gradient(180deg, #4466dd 0%, #2244bb 100%) !important;
+  background: linear-gradient(180deg, #7c3aed 0%, #6d28d9 100%) !important;
   color: #fff !important;
   box-shadow:
-    0 0 0 #2244bb,
+    0 0 0 #6d28d9,
     0 1px 3px rgba(0, 0, 0, 0.25) !important;
 }
 
@@ -60,16 +60,16 @@
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.03em;
-  background: linear-gradient(180deg, #e8eeff 0%, #d0d8f0 100%);
-  color: #2233aa;
+  background: linear-gradient(180deg, #e0f2fe 0%, #bae6fd 100%);
+  color: #0369a1;
   box-shadow:
-    0 1px 0 #8899c0,
-    0 3px 0 #7788b0,
-    0 4px 6px rgba(0, 0, 0, 0.25);
+    0 1px 0 #7ec8e3,
+    0 3px 0 #60b8d4,
+    0 4px 6px rgba(14, 165, 233, 0.25);
 }
 
 .shift:hover {
-  background: linear-gradient(180deg, #d8e4ff 0%, #c0ccee 100%);
+  background: linear-gradient(180deg, #bae6fd 0%, #7dd3fc 100%);
 }
 
 /* ── Enter key ─────────────────────────────────────────────── */
@@ -77,26 +77,26 @@
   width: 90px;
   font-size: 13px;
   font-weight: 700;
-  background: linear-gradient(180deg, #4a9eff 0%, #2d7de8 100%);
+  background: linear-gradient(180deg, #34d399 0%, #10b981 100%);
   color: #fff;
   box-shadow:
-    0 1px 0 #1a5eb8,
-    0 3px 0 #1050a8,
-    0 4px 8px rgba(0, 0, 0, 0.3);
+    0 1px 0 #059669,
+    0 3px 0 #047857,
+    0 4px 8px rgba(16, 185, 129, 0.35);
 }
 
 .enter:hover {
-  background: linear-gradient(180deg, #5aaaff 0%, #3d8df8 100%);
+  background: linear-gradient(180deg, #6ee7b7 0%, #34d399 100%);
   box-shadow:
-    0 1px 0 #1a5eb8,
-    0 3px 0 #1050a8,
-    0 4px 10px rgba(0, 0, 0, 0.35);
+    0 1px 0 #059669,
+    0 3px 0 #047857,
+    0 4px 10px rgba(16, 185, 129, 0.4);
 }
 
 .enter:active {
-  background: linear-gradient(180deg, #2d7de8 0%, #1a5eb8 100%);
+  background: linear-gradient(180deg, #10b981 0%, #059669 100%);
   box-shadow:
-    0 0 0 #1050a8,
+    0 0 0 #047857,
     0 1px 4px rgba(0, 0, 0, 0.3);
 }
 
@@ -106,7 +106,7 @@
   font-size: 12px;
   font-weight: 600;
   letter-spacing: 0.08em;
-  color: #888;
+  color: #7c3aed;
 }
 
 /* ── Action keys (Del, Del Word, Del All) ──────────────────── */

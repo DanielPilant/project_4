@@ -7,21 +7,26 @@
   display: flex;
   flex-wrap: wrap;
   border-radius: 14px;
-  gap: 4px;
-  padding: 8px;
-  background: #ddd;
-  border: 1px solid #999;
-  margin-bottom: 4px;
+  gap: 6px;
+  padding: 10px 12px;
+  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+  border: 1px solid #c4b5fd;
+  margin-bottom: 8px;
   align-items: center;
+  box-shadow: 0 2px 8px rgba(109, 40, 217, 0.1);
 }
 .toolbar label {
   margin-right: 4px;
   font-size: 13px;
+  color: #4c1d95;
+  font-weight: 500;
 }
 .toolbar select,
 .toolbar input {
   padding: 2px 4px;
   margin-right: 4px;
+  background-color: #fff;
+  border-color: #c4b5fd;
 }
 .docs-container {
   display: flex;
@@ -34,30 +39,40 @@
 .doc-panel {
   border-radius: 14px;
   min-height: 200px;
-  border: 2px solid #999;
+  border: 2px solid #c4b5fd;
   padding: 8px;
   min-width: 280px;
   flex: 1;
   background: #fff;
+  box-shadow: 0 2px 8px rgba(109, 40, 217, 0.07);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.doc-panel:hover {
+  box-shadow: 0 4px 16px rgba(109, 40, 217, 0.12);
 }
 .doc-panel.active {
-  border-color: #2196f3;
+  border-color: #7c3aed;
+  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15), 0 4px 16px rgba(109, 40, 217, 0.12);
 }
 .doc-panel-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
   font-size: 13px;
-  background: #eee;
-  padding: 4px;
+  background: linear-gradient(135deg, #ede9fe 0%, #e0e7ff 100%);
+  padding: 5px 8px;
+  border-radius: 8px;
+  color: #4c1d95;
+  font-weight: 600;
 }
 .text-display {
-  border: 1px solid #ccc;
+  border: 1px solid #ddd6fe;
   padding: 8px;
   margin-bottom: 4px;
   word-wrap: break-word;
   background: #fafafa;
+  border-radius: 8px;
   cursor: text;
 }
 .find-replace {
@@ -74,9 +89,10 @@
   max-width: 300px;
   margin: 50px auto;
   padding: 20px;
-  border: 1px solid #999;
+  border: 1px solid #c4b5fd;
   background: #fff;
   text-align: center;
+  border-radius: 14px;
 }
 .login-screen input {
   display: block;
@@ -93,9 +109,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 8px;
-  background: #333;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%);
   color: #fff;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
   font-size: 14px;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(109, 40, 217, 0.25);
 }

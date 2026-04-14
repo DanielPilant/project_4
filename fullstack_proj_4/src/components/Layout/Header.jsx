@@ -1,36 +1,25 @@
 function Header({ user, onLogout }) {
   return (
-    <header 
-      className="header-bar" 
-      style={{
-        backgroundColor: 'var(--panel-bg)', 
-        color: 'var(--text-main)',        
-        boxShadow: 'var(--shadow-sm)',      
-        border: '1px solid var(--border)',  
-        padding: '12px 20px',
-        marginBottom: '16px',
-        display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
-      }}
-    >
-      <div style={{ fontSize: '18px', fontWeight: '700', color: 'var(--primary)' }}>
+    <header className="header-bar">
+      <div style={{ fontSize: '18px', fontWeight: '700', color: '#e9d5ff', letterSpacing: '0.02em' }}>
         Visual Text Editor
       </div>
-      
+
       <div style={{ display: 'flex', alignItems: 'center', gap: '16px' }}>
-        <span style={{ color: 'var(--text-light)', fontSize: '14px', fontWeight: '500' }}>
-          Hello, <strong style={{ color: 'var(--text-main)' }}>{user}</strong>
+        <span style={{ color: '#c4b5fd', fontSize: '14px', fontWeight: '500' }}>
+          Hello, <strong style={{ color: '#ffffff' }}>{user}</strong>
         </span>
-        
-        <button 
-          onClick={onLogout} 
-          style={{ 
-            backgroundColor: '#fee2e2', 
-            color: '#dc2626',         
-            padding: '6px 12px',
+
+        <button
+          onClick={onLogout}
+          style={{
+            backgroundColor: 'rgba(255,255,255,0.15)',
+            color: '#ffffff',
+            border: '1px solid rgba(255,255,255,0.3)',
+            padding: '6px 14px',
             fontSize: '13px',
-            fontWeight: '600'
+            fontWeight: '600',
+            backdropFilter: 'blur(4px)'
           }}
         >
           Logout
