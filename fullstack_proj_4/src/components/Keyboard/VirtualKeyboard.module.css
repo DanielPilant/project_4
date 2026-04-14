@@ -1,0 +1,66 @@
+/* ── Outer keyboard shell ──────────────────────────────────── */
+.keyboard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 14px 18px 16px;
+  background: linear-gradient(180deg, #c8cdd6 0%, #b8bec9 100%);
+  border-top: 1px solid #a0a8b8;
+  border-radius: 14px;
+  position: sticky;
+  bottom: 0;
+  z-index: 100;
+  box-shadow:
+    0 -4px 16px rgba(0, 0, 0, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4);
+}
+
+/* ── Row containing main keys + side panel ─────────────────── */
+.keyboardBody {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+/* ── Main key section (letter/number rows + spacebar) ──────── */
+.mainSection {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mainKeys {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.spaceRow {
+  display: flex;
+  justify-content: center;
+  margin-top: 6px;
+}
+
+/* ── Side panel (delete actions + special chars) ───────────── */
+.sidePanel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  border-radius: 10px;
+  width: 110px;
+}
+
+/* 2-column grid for special character keys */
+.specialGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6px;
+}
