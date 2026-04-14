@@ -1,14 +1,5 @@
 import TextDisplay from '../Display/TextDisplay.jsx';
 
-// ============================================================
-// DocumentTabs — Renders all open documents as panels
-// Each panel has a header (name + close button) and a TextDisplay.
-// Props:
-//   documents   – array of all open document objects
-//   activeDocId – the ID of the currently focused document
-//   onFocus     – callback(docId) to set a document as active
-//   onClose     – callback(docId) to close a document
-// ============================================================
 function DocumentTabs({ documents, activeDocId, onFocus, onClose }) {
   return (
     <div className="docs-container">
