@@ -75,13 +75,6 @@ function App() {
 
   //#endregion
 
-  // =============================================================
-  // DOCUMENT UPDATE HELPER
-  // Central function that updates the active document's fields.
-  // If pushUndo is true, saves the current text to the undo stack first.
-  // Used by all the keyboard action handlers to mutate the document text,
-  // and also by the font/language handlers to update those settings.
-  // =============================================================
   //#region Document Update Helper
   const updateActiveDoc = (updater, pushUndo) => {
     setDocuments((prev) =>
@@ -107,11 +100,7 @@ function App() {
   };
   //#endregion
 
-  // =============================================================
-  // KEYBOARD ACTION HANDLERS
-  // These are passed to VirtualKeyboard via props.
-  // =============================================================
-
+  //#region KEYBOARD ACTION HANDLERS
   const handleKeyPress = (key) => {
     if (!activeDoc) return;
     updateActiveDoc((doc) => ({ text: doc.text + key }), true);
@@ -131,8 +120,8 @@ function App() {
     if (!activeDoc) return;
     updateActiveDoc((doc) => {
       // Trim trailing spaces, then remove the last word
-      const trimmed = doc.text.trimEnd();
-      const lastSpace = trimmed.lastIndexOf(" ");
+      const trimmed = doc.text.trimEnd(); // delete trailing spaces first so we don't end up with an empty string if the text ends with spaces
+      const lastSpace = trimmed.lastIndexOf(" "); // find the last space after trimming
       return { text: lastSpace === -1 ? "" : trimmed.slice(0, lastSpace + 1) };
     }, true);
   };
@@ -142,10 +131,9 @@ function App() {
     updateActiveDoc(() => ({ text: "" }), true);
   };
 
-  // =============================================================
-  // UNDO HANDLER
-  // =============================================================
+  //#endregion
 
+  //#region UNDO HANDLER
   const handleUndo = () => {
     if (!activeDoc) return;
     const stack = undoHistory[activeDoc.id] || [];
@@ -163,11 +151,9 @@ function App() {
       ),
     );
   };
+  //#endregion
 
-  // =============================================================
-  // FONT / LANGUAGE HANDLERS
-  // =============================================================
-
+  //#region FONT / LANGUAGE HANDLERS
   const handleChangeLang = () => {
     if (!activeDoc) return;
     updateActiveDoc((doc) => {
@@ -201,25 +187,21 @@ function App() {
   const handleChangeFontColor = (fontColor) => {
     updateActiveDoc(() => ({ fontColor }), false);
   };
+  //#endregion
 
-  // =============================================================
-  // FIND & REPLACE HANDLER
-  // =============================================================
-
+  //#region FIND & REPLACE HANDLER
   const handleFindReplace = (find, replace) => {
     if (!activeDoc || !find) return;
     updateActiveDoc(
       (doc) => ({
-        text: doc.text.split(find).join(replace),
+        text: doc.text.replaceAll(find, replace),
       }),
       true,
     );
   };
+  //#endregion
 
-  // =============================================================
-  // FILE OPERATION HANDLERS (localStorage via storageUtils)
-  // =============================================================
-
+  //#region FILE OPERATION HANDLERS (localStorage via storageUtils)
   const handleSave = () => {
     if (!activeDoc) return;
     saveDocToStorage(user, activeDoc.name, activeDoc);
@@ -278,10 +260,9 @@ function App() {
     }
   };
 
-  // =============================================================
-  // MULTI-DOCUMENT HANDLERS
-  // =============================================================
+  //#endregion
 
+  //#region MULTI-DOCUMENT HANDLERS
   const handleNew = () => {
     const newDoc = createDoc("Untitled");
     setDocuments((prev) => [...prev, newDoc]);
@@ -312,11 +293,9 @@ function App() {
       }
     }
   };
+  //#endregion
 
-  // =============================================================
-  // RENDER
-  // =============================================================
-
+  //#region RENDER
   return (
     <div className="app">
       {/* Header bar with app title, username, and logout button */}
@@ -358,6 +337,8 @@ function App() {
       />
     </div>
   );
+
+  //#endregion
 }
 
 export default App;
