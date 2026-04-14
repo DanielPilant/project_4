@@ -1,9 +1,3 @@
-// ============================================================
-// storageUtils.js — Pure helper functions for localStorage I/O
-// All functions are synchronous (no async/Promises).
-// Each user's files are namespaced under the key prefix "vte_{username}_".
-// ============================================================
-
 // Return the key prefix for the given username
 function userKey(username) {
   return 'vte_' + username + '_';

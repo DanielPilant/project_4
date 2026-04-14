@@ -1,10 +1,3 @@
-// ============================================================
-// docUtils.js — Document factory
-// Creates blank document objects with default formatting.
-// Uses a module-level counter to guarantee unique IDs.
-// ============================================================
-
-// Generate a basic unique string identifier
 function generateId() {
   return Date.now().toString(36) + Math.random().toString(36).substring(2);
 }
