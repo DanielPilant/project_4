@@ -1,6 +1,6 @@
 import styles from "./TextDisplay.module.css";
 
-function TextDisplay({ doc, isActive, onFocus, searchQuery }) {
+function TextDisplay({ doc, isActive, onFocus }) {
   let lines = doc.text.split("\n");
 
   const textStyle = {
