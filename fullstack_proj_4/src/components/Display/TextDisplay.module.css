@@ -7,7 +7,9 @@
   flex: 1;
   background: #fff;
   box-shadow: 0 2px 8px rgba(109, 40, 217, 0.07);
-  transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  transition:
+    box-shadow 0.2s ease,
+    border-color 0.2s ease;
 }
 
 .docPanel:hover {
@@ -16,15 +18,7 @@
 
 .docPanel.active {
   border-color: #7c3aed;
-  box-shadow: 0 0 0 3px rgba(124, 58, 237, 0.15), 0 4px 16px rgba(109, 40, 217, 0.12);
-}
-
-.textArea {
-  border: 1px solid #ddd6fe;
-  padding: 8px;
-  margin-bottom: 4px;
-  word-wrap: break-word;
-  background: #fafafa;
-  border-radius: 8px;
-  cursor: text;
+  box-shadow:
+    0 0 0 3px rgba(124, 58, 237, 0.15),
+    0 4px 16px rgba(109, 40, 217, 0.12);
 }

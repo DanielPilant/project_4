@@ -1,12 +1,4 @@
-// ============================================================
-// FontControls — Language toggle, font family, size, and color
-// Props:
-//   activeDoc       – the currently focused document (for reading current values)
-//   onChangeLang    – callback to toggle EN/HE
-//   onChangeFont    – callback(fontFamily)
-//   onChangeFontSize  – callback(number)
-//   onChangeFontColor – callback(hexString)
-// ============================================================
+// Language toggle, font family, size, and color controls
 function FontControls({
   activeDoc,
   onChangeLang,
@@ -16,12 +8,10 @@ function FontControls({
 }) {
   return (
     <>
-      {/* Language toggle button — cycles between EN and HE */}
       <button onClick={onChangeLang}>
         Lang: {activeDoc ? activeDoc.lang.toUpperCase() : "EN"}
       </button>
 
-      {/* Font family dropdown */}
       <label>Font:</label>
       <select
         value={activeDoc ? activeDoc.fontFamily : "Arial"}
@@ -33,7 +23,6 @@ function FontControls({
         <option value="Times New Roman">Times New Roman</option>
       </select>
 
-      {/* Font size dropdown */}
       <label>Size:</label>
       <select
         value={activeDoc ? activeDoc.fontSize : 16}
@@ -46,7 +35,6 @@ function FontControls({
         <option value={32}>32</option>
       </select>
 
-      {/* Color picker input */}
       <label>Color:</label>
       <input
         type="color"

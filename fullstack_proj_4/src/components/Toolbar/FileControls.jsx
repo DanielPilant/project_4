@@ -1,16 +1,8 @@
 import { useState } from "react";
 import styles from "./FileControls.module.css";
 
-// ============================================================
-// FileControls — New, Save, Save As, and Open file buttons
-// Owns local state for the "open file" dropdown selection.
-// Props:
-//   onNew       – callback to create a new blank document
-//   onSave      – callback to save the active document
-//   onSaveAs    – callback to save the active document under a new name
-//   onOpen      – callback(fileName) to open a saved file
-//   savedFiles  – array of file name strings available to open
-// ============================================================
+// File operation buttons — New, Save, Save As, Open, Delete
+// selectedFile tracks what's chosen in the dropdown
 function FileControls({
   onNew,
   onSave,

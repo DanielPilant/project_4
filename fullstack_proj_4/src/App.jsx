@@ -1,7 +1,6 @@
 import { useState } from "react";
 import styles from "./App.module.css";
 
-// Utility imports — pure JS helpers, no React
 import { createDoc } from "./utils/docUtils.js";
 import {
   saveCurrentUser,
@@ -13,39 +12,27 @@ import {
   deleteDocFromStorage,
 } from "./utils/storageUtils.js";
 
-// Component imports — each in its own folder by responsibility
 import AuthScreen from "./components/Auth/AuthScreen.jsx";
 import Header from "./components/Layout/Header.jsx";
 import Toolbar from "./components/Toolbar/Toolbar.jsx";
 import DocumentTabs from "./components/Tabs/DocumentTabs.jsx";
 import VirtualKeyboard from "./components/Keyboard/VirtualKeyboard.jsx";
 
-// ============================================================
-// App — The root state orchestrator
-// Holds ALL application state via useState and passes data + callbacks
-// down to child components through props (prop drilling).
-// No useEffect, no useContext, no custom hooks — only useState.
-// ============================================================
+// Root component — all state lives here and gets passed down as props
 function App() {
-  //#region State Initialization and Derived Values
+  //#region State
 
-  // --- Part D: Authentication state ---
-  // Initialize from localStorage so the user stays logged in across refreshes
   const [user, setUser] = useState(() => loadCurrentUser());
 
-  // --- Part C: Multi-document state ---
-  // Array of open document objects; starts with one blank document
   const [documents, setDocuments] = useState(() => [createDoc("Untitled")]);
 
-  // ID of the currently focused/active document
   const [activeDocId, setActiveDocId] = useState(
     () => documents[0]?.id || null,
   );
 
-  // Undo history: { [docId]: [previousTextString, ...] }
+  // { [docId]: string[] } — stack of previous text snapshots per document
   const [undoHistory, setUndoHistory] = useState({});
 
-  // --- Derived values (computed each render, not stored in state) ---
   const activeDoc = documents.find((d) => d.id === activeDocId) || null;
   const savedFiles = user ? getSavedFiles(user) : [];
 
@@ -61,14 +48,12 @@ function App() {
   const handleLogout = () => {
     clearCurrentUser();
     setUser("");
-    // Reset to a clean slate
     const fresh = createDoc("Untitled");
     setDocuments([fresh]);
     setActiveDocId(fresh.id);
     setUndoHistory({});
   };
 
-  // Gate: if no user is logged in, render only the login screen
   if (!user) {
     return <AuthScreen onLogin={handleLogin} />;
   }
@@ -81,9 +66,8 @@ function App() {
       prev.map((doc) => {
         if (doc.id !== activeDocId) return doc;
         if (pushUndo) {
-          // Snapshot current text before the mutation
+          // snapshot text before the change
           setUndoHistory((history) => {
-            // Get the existing undo stack for this document, or start a new one if it doesn't exist
             let stack = [...(history[doc.id] || [])];
 
             stack.push(doc.text);
@@ -119,9 +103,9 @@ function App() {
   const handleDeleteWord = () => {
     if (!activeDoc) return;
     updateActiveDoc((doc) => {
-      // Trim trailing spaces, then remove the last word
-      const trimmed = doc.text.trimEnd(); // delete trailing spaces first so we don't end up with an empty string if the text ends with spaces
-      const lastSpace = trimmed.lastIndexOf(" "); // find the last space after trimming
+      // trim trailing spaces first, then cut back to the previous space
+      const trimmed = doc.text.trimEnd();
+      const lastSpace = trimmed.lastIndexOf(" ");
       return { text: lastSpace === -1 ? "" : trimmed.slice(0, lastSpace + 1) };
     }, true);
   };
@@ -139,7 +123,6 @@ function App() {
     const stack = undoHistory[activeDoc.id] || [];
     if (stack.length === 0) return;
     const previousText = stack[stack.length - 1];
-    // Pop the last entry off the undo stack
     setUndoHistory((history) => ({
       ...history,
       [activeDoc.id]: stack.slice(0, -1),
@@ -211,11 +194,9 @@ function App() {
   const handleSaveAs = () => {
     const name = prompt("Enter file name:");
     if (!name) return;
-    // Rename the active document in state
     setDocuments((prev) =>
       prev.map((doc) => (doc.id === activeDocId ? { ...doc, name } : doc)),
     );
-    // Persist to localStorage under the new name
     saveDocToStorage(user, name, activeDoc);
     alert("Saved as: " + name);
   };
@@ -226,7 +207,6 @@ function App() {
       alert("File not found.");
       return;
     }
-    // Create a new document tab populated with the loaded data
     const newDoc = {
       ...createDoc(fileName),
       text: data.text || "",
@@ -273,7 +253,7 @@ function App() {
 
   const handleCloseDoc = (docId) => {
     const doc = documents.find((d) => d.id === docId);
-    // If the document has text, ask the user whether to save first
+    // offer to save if there's anything worth keeping
     if (doc && doc.text) {
       const shouldSave = confirm('Save "' + doc.name + '" before closing?');
       if (shouldSave) {
@@ -281,7 +261,6 @@ function App() {
       }
     }
 
-    // Remove the document from the array
     const remaining = documents.filter((doc) => doc.id !== docId);
     if (remaining.length === 0) {
       // Always keep at least one document open
@@ -290,7 +269,7 @@ function App() {
       setActiveDocId(fresh.id);
     } else {
       setDocuments(remaining);
-      // If we just closed the active doc, switch focus to the first remaining
+      // if we closed the active tab, move focus to the first remaining one
       if (activeDocId === docId) {
         setActiveDocId(remaining[0].id);
       }
@@ -301,10 +280,8 @@ function App() {
   //#region RENDER
   return (
     <div className={styles.app}>
-      {/* Header bar with app title, username, and logout button */}
       <Header user={user} onLogout={handleLogout} />
 
-      {/* Toolbar: font controls, undo, find/replace, file operations */}
       <Toolbar
         activeDoc={activeDoc}
         onChangeLang={handleChangeLang}
@@ -321,7 +298,6 @@ function App() {
         savedFiles={savedFiles}
       />
 
-      {/* Document panels: each open document rendered as a tab + display */}
       <DocumentTabs
         documents={documents}
         activeDocId={activeDocId}
@@ -329,7 +305,6 @@ function App() {
         onClose={handleCloseDoc}
       />
 
-      {/* Shared virtual keyboard: types into whichever document is active */}
       <VirtualKeyboard
         lang={activeDoc ? activeDoc.lang : "en"}
         onKeyPress={handleKeyPress}
