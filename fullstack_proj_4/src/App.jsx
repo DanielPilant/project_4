@@ -33,8 +33,6 @@ function App() {
   // { [docId]: string[] } — stack of previous text snapshots per document
   const [undoHistory, setUndoHistory] = useState({});
 
-  const [searchQuery, setSearchQuery] = useState("");
-
   const activeDoc = documents.find((d) => d.id === activeDocId) || null;
   const savedFiles = user ? getSavedFiles(user) : [];
 
@@ -286,8 +284,6 @@ function App() {
 
       <Toolbar
         activeDoc={activeDoc}
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
         onChangeLang={handleChangeLang}
         onChangeFont={handleChangeFont}
         onChangeFontSize={handleChangeFontSize}
@@ -307,7 +303,6 @@ function App() {
         activeDocId={activeDocId}
         onFocus={setActiveDocId}
         onClose={handleCloseDoc}
-        searchQuery={searchQuery}
       />
 
       <VirtualKeyboard

@@ -1,4 +1,4 @@
-import styles from './TextDisplay.module.css';
+import styles from "./TextDisplay.module.css";
 
 function TextDisplay({ doc, isActive, onFocus, searchQuery }) {
   let lines = doc.text.split("\n");
@@ -9,29 +9,6 @@ function TextDisplay({ doc, isActive, onFocus, searchQuery }) {
     color: doc.fontColor,
   };
 
-  const renderHighlightedText = (text) => {
-    if (!searchQuery) return text;
-
-    try {
-      // escape special regex chars so the query is treated as a literal string
-      const escapedQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      const regex = new RegExp(`(${escapedQuery})`, 'gi');
-      const parts = text.split(regex);
-
-      return parts.map((part, index) =>
-        part.toLowerCase() === searchQuery.toLowerCase() ? (
-          <span key={index} style={{ backgroundColor: '#fef08a' }}>
-            {part}
-          </span>
-        ) : (
-          part
-        )
-      );
-    } catch {
-      return text;
-    }
-  };
-
   return (
     <div
       className={styles.docPanel + (isActive ? " " + styles.active : "")}
@@ -40,7 +17,8 @@ function TextDisplay({ doc, isActive, onFocus, searchQuery }) {
       <div className={styles.textArea} style={textStyle}>
         {lines.map((line, i) => (
           <div key={i} dir="auto">
-            {renderHighlightedText(line)}
+            {/* Render the plain text line without highlighting */}
+            {line}
           </div>
         ))}
       </div>

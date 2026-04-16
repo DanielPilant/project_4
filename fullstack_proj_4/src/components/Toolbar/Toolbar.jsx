@@ -18,8 +18,6 @@ function Toolbar({
   onNew,
   onDelete,
   savedFiles,
-  onSearchChange,
-  searchQuery,
 }) {
   return (
     <div className={styles.toolbar}>
@@ -30,15 +28,6 @@ function Toolbar({
         onChangeFontSize={onChangeFontSize}
         onChangeFontColor={onChangeFontColor}
       />
-
-      <div className={styles.findReplace}>
-        <input
-          type="text"
-          placeholder="Real-time Find..."
-          value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
-        />
-      </div>
 
       <ActionControls onUndo={onUndo} onFindReplace={onFindReplace} />
 
