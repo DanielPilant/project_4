@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styles from './Toolbar.module.css';
 
 // ============================================================
 // ActionControls — Undo button and Find/Replace inputs
@@ -18,7 +19,7 @@ function ActionControls({ onUndo, onFindReplace }) {
       <button onClick={onUndo}>Undo</button>
 
       {/* Find and Replace inline form */}
-      <div className="find-replace">
+      <div className={styles.findReplace}>
         <input
           placeholder="Find"
           value={findText}

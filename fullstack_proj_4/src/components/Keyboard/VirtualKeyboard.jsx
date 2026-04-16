@@ -2,19 +2,28 @@ import styles from "./VirtualKeyboard.module.css";
 import Key from "./Key.jsx";
 import { useState } from "react";
 
-const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
-const specialShiftChars = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")"];
+// Character sets for different languages and key variants
+
+// Number row and their shifted special characters (same for English and Hebrew)
+const NUMBERS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+
+// Shifted special characters for the number row (English and Hebrew)
+const SPECIAL_SHIFT_CHARS = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")"];
+
+// Common special characters for the side panel (same for all languages)
+const SIDE_SPECIAL_CHARS = [".", ",", "!", ";", ":", "'", '"', "-"];
 
 // English keyboard layout — each sub-array is one row
 const EN_LOW_ROWS = [
-  [...numbers],
+  [...NUMBERS],
   ["q", "w", "e", "r", "t", "y", "u", "i", "o", "p"],
   ["a", "s", "d", "f", "g", "h", "j", "k", "l"],
   ["z", "x", "c", "v", "b", "n", "m"],
 ];
 
+// Uppercase and shifted special characters for English layout
 const EN_UP_ROWS = [
-  [...specialShiftChars],
+  [...SPECIAL_SHIFT_CHARS],
   ["Q", "W", "E", "R", "T", "Y", "U", "I", "O", "P"],
   ["A", "S", "D", "F", "G", "H", "J", "K", "L"],
   ["Z", "X", "C", "V", "B", "N", "M"],
@@ -27,9 +36,6 @@ const EMOJI_ROWS = [
   ["⚽️", "🏀", "🏈", "⚾️", "🎾", "🏐", "🏉"],
   ["🚗", "🚕", "🚙", "🚌", "🚎", "🏎️", "🚓"],
 ];
-
-// Punctuation / special characters shown in the side panel
-const SIDE_SPECIAL_CHARS = [".", ",", "!", ";", ":", "'", '"', "-"];
 
 // ============================================================
 // VirtualKeyboard — On-screen keyboard that types into the active document.
@@ -60,7 +66,7 @@ function VirtualKeyboard({
 
   // Hebrew keyboard layout — same structure, Hebrew characters
   const HE_ROWS = [
-    isShift ? [...specialShiftChars] : [...numbers],
+    isShift ? [...SPECIAL_SHIFT_CHARS] : [...NUMBERS],
     [
       "\u05E7",
       "\u05E8",
@@ -114,6 +120,13 @@ function VirtualKeyboard({
   return (
     <div className={styles.keyboard}>
       <div className={styles.keyboardBody}>
+        {/* ── left side panel: arrows -> left, right, up, down ─────────── */}
+        {/* <div className={styles.leftSidePanel}>
+          <Key label="←" onClick={() => onKeyPress("LEFT")} variant="action" />
+          <Key label="→" onClick={() => onKeyPress("RIGHT")} variant="action" />
+          <Key label="↑" onClick={() => onKeyPress("UP")} variant="action" />
+          <Key label="↓" onClick={() => onKeyPress("DOWN")} variant="action" />
+        </div> */}
         {/* ── Main keyboard area ───────────────────────────── */}
         <div className={styles.mainSection}>
           <div className={styles.mainKeys}>
@@ -129,12 +142,9 @@ function VirtualKeyboard({
                   />
                 )}
 
+                {/* Render each key in the current row */}
                 {row.map((keyChar) => (
-                  <Key
-                    key={keyChar}
-                    label={keyChar}
-                    onClick={() => onKeyPress(keyChar)}
-                  />
+                  <Key label={keyChar} onClick={() => onKeyPress(keyChar)} />
                 ))}
 
                 {/* Enter at the end of the second-to-last row */}
@@ -155,7 +165,7 @@ function VirtualKeyboard({
           </div>
         </div>
 
-        {/* ── Side panel: actions + special chars ─────────── */}
+        {/* ── right side panel: actions + special chars ─────────── */}
         <div className={styles.sidePanel}>
           <Key label="Del ⌫" onClick={onDeleteChar} variant="action" />
           <Key label="Del Word" onClick={onDeleteWord} variant="action" />

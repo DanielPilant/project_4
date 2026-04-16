@@ -1,12 +1,13 @@
 import TextDisplay from '../Display/TextDisplay.jsx';
+import styles from './DocumentTabs.module.css';
 
 function DocumentTabs({ documents, activeDocId, onFocus, onClose, searchQuery }) {
   return (
-    <div className="docs-container">
+    <div className={styles.docsContainer}>
       {documents.map((doc) => (
         <div key={doc.id} style={{ flex: 1, minWidth: 280 }}>
           {/* Tab header: shows file name and a close button */}
-          <div className="doc-panel-header">
+          <div className={styles.docPanelHeader}>
             <span>{doc.name}</span>
             <button onClick={() => onClose(doc.id)}>X</button>
           </div>

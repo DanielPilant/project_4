@@ -1,0 +1,39 @@
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  border-radius: 14px;
+  gap: 6px;
+  padding: 10px 12px;
+  background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%);
+  border: 1px solid #c4b5fd;
+  margin-bottom: 8px;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(109, 40, 217, 0.1);
+}
+
+.toolbar label {
+  margin-right: 4px;
+  font-size: 13px;
+  color: #4c1d95;
+  font-weight: 500;
+}
+
+.toolbar select,
+.toolbar input {
+  padding: 2px 4px;
+  margin-right: 4px;
+  background-color: #fff;
+  border-color: #c4b5fd;
+}
+
+.findReplace {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 13px;
+}
+
+.findReplace input {
+  width: 80px;
+  padding: 2px;
+}

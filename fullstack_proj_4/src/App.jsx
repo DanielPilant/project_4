@@ -1,5 +1,5 @@
 import { useState } from "react";
-import "./App.css";
+import styles from "./App.module.css";
 
 // Utility imports — pure JS helpers, no React
 import { createDoc } from "./utils/docUtils.js";
@@ -303,7 +303,7 @@ function App() {
 
   //#region RENDER
   return (
-    <div className="app">
+    <div className={styles.app}>
       {/* Header bar with app title, username, and logout button */}
       <Header user={user} onLogout={handleLogout} />
 

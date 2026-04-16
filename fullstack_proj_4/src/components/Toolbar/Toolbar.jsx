@@ -1,6 +1,7 @@
 import FontControls from "./FontControls.jsx";
 import ActionControls from "./ActionControls.jsx";
 import FileControls from "./FileControls.jsx";
+import styles from "./Toolbar.module.css";
 
 // ============================================================
 // Toolbar — Wrapper that composes the toolbar sections
@@ -19,9 +20,11 @@ function Toolbar({
   onNew,
   onDelete,
   savedFiles,
+  onSearchChange,
+  searchQuery,
 }) {
   return (
-    <div className="toolbar">
+    <div className={styles.toolbar}>
       {/* Section 1: Language and font styling controls */}
       <FontControls
         activeDoc={activeDoc}
@@ -32,7 +35,7 @@ function Toolbar({
       />
 
       {/* New Section: Real-time Find Input */}
-      <div className="find-replace">
+      <div className={styles.findReplace}>
         <input
           type="text"
           placeholder="Real-time Find..."

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import styles from "./FileControls.module.css";
 
 // ============================================================
 // FileControls — New, Save, Save As, and Open file buttons
@@ -21,7 +22,7 @@ function FileControls({
   const [selectedFile, setSelectedFile] = useState("");
 
   return (
-    <div className="file-ops">
+    <div className={styles.fileOps}>
       <button onClick={onNew}>New</button>
       <button onClick={onSave}>Save</button>
       <button onClick={onSaveAs}>Save As</button>

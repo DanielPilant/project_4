@@ -1,6 +1,8 @@
+import styles from './Header.module.css';
+
 function Header({ user, onLogout }) {
   return (
-    <header className="header-bar">
+    <header className={styles.headerBar}>
       <div style={{ fontSize: '18px', fontWeight: '700', color: '#e9d5ff', letterSpacing: '0.02em' }}>
         Visual Text Editor
       </div>

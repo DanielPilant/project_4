@@ -1,0 +1,21 @@
+.docsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 8px;
+  overflow-y: auto;
+  max-height: 55vh;
+}
+
+.docPanelHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 6px;
+  font-size: 13px;
+  background: linear-gradient(135deg, #ede9fe 0%, #e0e7ff 100%);
+  padding: 5px 8px;
+  border-radius: 8px;
+  color: #4c1d95;
+  font-weight: 600;
+}

@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { registerUser, authenticateUser } from '../../utils/storageUtils.js';
+import styles from './AuthScreen.module.css';
 
 function AuthScreen({ onLogin }) {
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -49,19 +50,19 @@ function AuthScreen({ onLogin }) {
   };
 
   return (
-    <div className="login-wrapper">
-      <div className="login-card">
+    <div className={styles.loginWrapper}>
+      <div className={styles.loginCard}>
         <div>
-          <h1 className="login-logo">Visual Text Editor</h1>
-          <p className="login-subtitle">
+          <h1 className={styles.loginLogo}>Visual Text Editor</h1>
+          <p className={styles.loginSubtitle}>
             {isLoginMode ? 'Login to your account' : 'Create a new account'}
           </p>
         </div>
-        
-        <form onSubmit={handleSubmit} className="login-form">
+
+        <form onSubmit={handleSubmit} className={styles.loginForm}>
           <input
             type="text"
-            className="login-input"
+            className={styles.loginInput}
             value={username}
             onChange={handleInputChange(setUsername)}
             placeholder="Username..."
@@ -70,19 +71,19 @@ function AuthScreen({ onLogin }) {
           />
           <input
             type="password"
-            className="login-input"
+            className={styles.loginInput}
             value={password}
             onChange={handleInputChange(setPassword)}
             placeholder="Password..."
           />
-          
+
           {error && (
             <div style={{ color: 'var(--error-color, #e84118)', fontSize: '14px', marginTop: '-8px' }}>
               {error}
             </div>
           )}
 
-          <button type="submit" className="login-button" disabled={!username.trim() || !password.trim()}>
+          <button type="submit" className={styles.loginButton} disabled={!username.trim() || !password.trim()}>
             {isLoginMode ? 'Login' : 'Register'}
           </button>
         </form>

@@ -1,3 +1,5 @@
+import styles from './TextDisplay.module.css';
+
 // ============================================================
 // TextDisplay — Renders one document's formatted text
 // ============================================================
@@ -42,11 +44,11 @@ function TextDisplay({ doc, isActive, onFocus, searchQuery }) {
 
   return (
     <div
-      className={"doc-panel" + (isActive ? " active" : "")}
+      className={styles.docPanel + (isActive ? " " + styles.active : "")}
       onClick={onFocus}
     >
       {/* The visible formatted text area */}
-      <div className="text-area" style={textStyle}>
+      <div className={styles.textArea} style={textStyle}>
         {lines.map((line, i) => (
           <div key={i} dir="auto">
             {renderHighlightedText(line)}

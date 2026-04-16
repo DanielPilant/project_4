@@ -1,0 +1,12 @@
+.headerBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #4c1d95 0%, #7c3aed 100%);
+  color: #fff;
+  margin-bottom: 12px;
+  font-size: 14px;
+  border-radius: 14px;
+  box-shadow: 0 4px 16px rgba(109, 40, 217, 0.25);
+}
