@@ -45,9 +45,6 @@ function App() {
   // Undo history: { [docId]: [previousTextString, ...] }
   const [undoHistory, setUndoHistory] = useState({});
 
-  // State to hold the current search query for real-time highlighting
-  const [searchQuery, setSearchQuery] = useState("");
-
   // --- Derived values (computed each render, not stored in state) ---
   const activeDoc = documents.find((d) => d.id === activeDocId) || null;
   const savedFiles = user ? getSavedFiles(user) : [];
@@ -310,8 +307,6 @@ function App() {
       {/* Toolbar: font controls, undo, find/replace, file operations */}
       <Toolbar
         activeDoc={activeDoc}
-        searchQuery={searchQuery}
-        onSearchChange={setSearchQuery}
         onChangeLang={handleChangeLang}
         onChangeFont={handleChangeFont}
         onChangeFontSize={handleChangeFontSize}
@@ -332,7 +327,6 @@ function App() {
         activeDocId={activeDocId}
         onFocus={setActiveDocId}
         onClose={handleCloseDoc}
-        searchQuery={searchQuery}
       />
 
       {/* Shared virtual keyboard: types into whichever document is active */}

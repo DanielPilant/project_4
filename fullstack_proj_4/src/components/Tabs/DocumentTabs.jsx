@@ -1,7 +1,7 @@
 import TextDisplay from '../Display/TextDisplay.jsx';
 import styles from './DocumentTabs.module.css';
 
-function DocumentTabs({ documents, activeDocId, onFocus, onClose, searchQuery }) {
+function DocumentTabs({ documents, activeDocId, onFocus, onClose}) {
   return (
     <div className={styles.docsContainer}>
       {documents.map((doc) => (
@@ -16,7 +16,6 @@ function DocumentTabs({ documents, activeDocId, onFocus, onClose, searchQuery })
             doc={doc}
             isActive={doc.id === activeDocId}
             onFocus={() => onFocus(doc.id)}
-            searchQuery={searchQuery}
           />
         </div>
       ))}
