@@ -1,30 +1,21 @@
 import styles from './TextDisplay.module.css';
 
-// ============================================================
-// TextDisplay — Renders one document's formatted text
-// ============================================================
 function TextDisplay({ doc, isActive, onFocus, searchQuery }) {
-  // Split the document's text into lines at newline characters
   let lines = doc.text.split("\n");
 
-  // Build inline styles from the document's font settings
   const textStyle = {
     fontFamily: doc.fontFamily,
     fontSize: doc.fontSize + "px",
     color: doc.fontColor,
   };
 
-  // Function to highlight matched text based on the search query
   const renderHighlightedText = (text) => {
     if (!searchQuery) return text;
 
     try {
-      // Escape special regex characters in the search query to prevent crashes
+      // escape special regex chars so the query is treated as a literal string
       const escapedQuery = searchQuery.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-      // Create a case-insensitive regular expression
       const regex = new RegExp(`(${escapedQuery})`, 'gi');
-      
-      // Split the text, keeping the matched parts in the resulting array
       const parts = text.split(regex);
 
       return parts.map((part, index) =>
@@ -37,7 +28,6 @@ function TextDisplay({ doc, isActive, onFocus, searchQuery }) {
         )
       );
     } catch {
-      // Fallback in case of unexpected regex errors
       return text;
     }
   };
@@ -47,7 +37,6 @@ function TextDisplay({ doc, isActive, onFocus, searchQuery }) {
       className={styles.docPanel + (isActive ? " " + styles.active : "")}
       onClick={onFocus}
     >
-      {/* The visible formatted text area */}
       <div className={styles.textArea} style={textStyle}>
         {lines.map((line, i) => (
           <div key={i} dir="auto">

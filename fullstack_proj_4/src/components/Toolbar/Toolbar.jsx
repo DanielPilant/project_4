@@ -3,9 +3,7 @@ import ActionControls from "./ActionControls.jsx";
 import FileControls from "./FileControls.jsx";
 import styles from "./Toolbar.module.css";
 
-// ============================================================
-// Toolbar — Wrapper that composes the toolbar sections
-// ============================================================
+// Toolbar — font, search, undo/replace, and file controls
 function Toolbar({
   activeDoc,
   onChangeLang,
@@ -25,7 +23,6 @@ function Toolbar({
 }) {
   return (
     <div className={styles.toolbar}>
-      {/* Section 1: Language and font styling controls */}
       <FontControls
         activeDoc={activeDoc}
         onChangeLang={onChangeLang}
@@ -34,7 +31,6 @@ function Toolbar({
         onChangeFontColor={onChangeFontColor}
       />
 
-      {/* New Section: Real-time Find Input */}
       <div className={styles.findReplace}>
         <input
           type="text"
@@ -44,10 +40,8 @@ function Toolbar({
         />
       </div>
 
-      {/* Section 2: Undo and find/replace */}
       <ActionControls onUndo={onUndo} onFindReplace={onFindReplace} />
 
-      {/* Section 3: File management buttons */}
       <FileControls
         onNew={onNew}
         onSave={onSave}
