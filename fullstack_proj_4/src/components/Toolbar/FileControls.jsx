@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 // ============================================================
 // FileControls — New, Save, Save As, and Open file buttons
@@ -10,8 +10,15 @@ import { useState } from 'react';
 //   onOpen      – callback(fileName) to open a saved file
 //   savedFiles  – array of file name strings available to open
 // ============================================================
-function FileControls({ onNew, onSave, onSaveAs, onOpen, onDelete, savedFiles }) {
-  const [selectedFile, setSelectedFile] = useState('');
+function FileControls({
+  onNew,
+  onSave,
+  onSaveAs,
+  onOpen,
+  onDelete,
+  savedFiles,
+}) {
+  const [selectedFile, setSelectedFile] = useState("");
 
   return (
     <div className="file-ops">
@@ -19,25 +26,25 @@ function FileControls({ onNew, onSave, onSaveAs, onOpen, onDelete, savedFiles })
       <button onClick={onSave}>Save</button>
       <button onClick={onSaveAs}>Save As</button>
 
-      <select value={selectedFile} onChange={(e) => setSelectedFile(e.target.value)}>
+      <select
+        value={selectedFile}
+        onChange={(e) => setSelectedFile(e.target.value)}
+      >
         <option value="">-- Select File --</option>
         {savedFiles.map((f) => (
-          <option key={f} value={f}>{f}</option>
+          <option>{f}</option>
         ))}
       </select>
-      
-      <button 
-        disabled={!selectedFile} 
-        onClick={() => onOpen(selectedFile)}
-      >
+
+      <button disabled={!selectedFile} onClick={() => onOpen(selectedFile)}>
         Open
       </button>
 
-      <button 
-        disabled={!selectedFile} 
+      <button
+        disabled={!selectedFile}
         onClick={() => {
           onDelete(selectedFile);
-          setSelectedFile('');
+          setSelectedFile("");
         }}
       >
         Delete

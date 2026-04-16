@@ -264,7 +264,9 @@ function App() {
 
   //#region MULTI-DOCUMENT HANDLERS
   const handleNew = () => {
-    const newDoc = createDoc("Untitled");
+    const newDoc = createDoc(
+      "Untitled" + (documents.length > 0 ? ` (${documents.length})` : ""),
+    );
     setDocuments((prev) => [...prev, newDoc]);
     setActiveDocId(newDoc.id);
   };
@@ -278,8 +280,9 @@ function App() {
         saveDocToStorage(user, doc.name, doc);
       }
     }
+
     // Remove the document from the array
-    const remaining = documents.filter((d) => d.id !== docId);
+    const remaining = documents.filter((doc) => doc.id !== docId);
     if (remaining.length === 0) {
       // Always keep at least one document open
       const fresh = createDoc("Untitled");

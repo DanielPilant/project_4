@@ -1,6 +1,6 @@
-import FontControls from './FontControls.jsx';
-import ActionControls from './ActionControls.jsx';
-import FileControls from './FileControls.jsx';
+import FontControls from "./FontControls.jsx";
+import ActionControls from "./ActionControls.jsx";
+import FileControls from "./FileControls.jsx";
 
 // ============================================================
 // Toolbar — Wrapper that composes the three toolbar sections
@@ -11,7 +11,7 @@ import FileControls from './FileControls.jsx';
 //   onNew, onSave, onSaveAs, onOpen, savedFiles
 // ============================================================
 function Toolbar({
-activeDoc,
+  activeDoc,
   onChangeLang,
   onChangeFont,
   onChangeFontSize,
@@ -23,7 +23,7 @@ activeDoc,
   onOpen,
   onNew,
   onDelete,
-  savedFiles
+  savedFiles,
 }) {
   return (
     <div className="toolbar">
@@ -37,10 +37,7 @@ activeDoc,
       />
 
       {/* Section 2: Undo and find/replace */}
-      <ActionControls
-        onUndo={onUndo}
-        onFindReplace={onFindReplace}
-      />
+      <ActionControls onUndo={onUndo} onFindReplace={onFindReplace} />
 
       {/* Section 3: File management buttons */}
       <FileControls

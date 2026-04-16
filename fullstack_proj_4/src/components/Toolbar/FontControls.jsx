@@ -7,18 +7,24 @@
 //   onChangeFontSize  – callback(number)
 //   onChangeFontColor – callback(hexString)
 // ============================================================
-function FontControls({ activeDoc, onChangeLang, onChangeFont, onChangeFontSize, onChangeFontColor }) {
+function FontControls({
+  activeDoc,
+  onChangeLang,
+  onChangeFont,
+  onChangeFontSize,
+  onChangeFontColor,
+}) {
   return (
     <>
       {/* Language toggle button — cycles between EN and HE */}
       <button onClick={onChangeLang}>
-        Lang: {activeDoc ? activeDoc.lang.toUpperCase() : 'EN'}
+        Lang: {activeDoc ? activeDoc.lang.toUpperCase() : "EN"}
       </button>
 
       {/* Font family dropdown */}
       <label>Font:</label>
       <select
-        value={activeDoc ? activeDoc.fontFamily : 'Arial'}
+        value={activeDoc ? activeDoc.fontFamily : "Arial"}
         onChange={(e) => onChangeFont(e.target.value)}
       >
         <option value="Arial">Arial</option>
@@ -44,7 +50,7 @@ function FontControls({ activeDoc, onChangeLang, onChangeFont, onChangeFontSize,
       <label>Color:</label>
       <input
         type="color"
-        value={activeDoc ? activeDoc.fontColor : '#000000'}
+        value={activeDoc ? activeDoc.fontColor : "#000000"}
         onChange={(e) => onChangeFontColor(e.target.value)}
       />
     </>
