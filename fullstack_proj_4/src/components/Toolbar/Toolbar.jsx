@@ -3,15 +3,12 @@ import ActionControls from './ActionControls.jsx';
 import FileControls from './FileControls.jsx';
 
 // ============================================================
-// Toolbar — Wrapper that composes the three toolbar sections
-// Simply delegates all props down to the appropriate sub-component.
-// Props: (see each sub-component for details)
-//   activeDoc, onChangeLang, onChangeFont, onChangeFontSize, onChangeFontColor
-//   onUndo, onFindReplace
-//   onNew, onSave, onSaveAs, onOpen, savedFiles
+// Toolbar — Wrapper that composes the toolbar sections
 // ============================================================
 function Toolbar({
-activeDoc,
+  activeDoc,
+  searchQuery,
+  onSearchChange,
   onChangeLang,
   onChangeFont,
   onChangeFontSize,
@@ -35,6 +32,16 @@ activeDoc,
         onChangeFontSize={onChangeFontSize}
         onChangeFontColor={onChangeFontColor}
       />
+
+      {/* New Section: Real-time Find Input */}
+      <div className="find-replace">
+        <input
+          type="text"
+          placeholder="Real-time Find..."
+          value={searchQuery}
+          onChange={(e) => onSearchChange(e.target.value)}
+        />
+      </div>
 
       {/* Section 2: Undo and find/replace */}
       <ActionControls
