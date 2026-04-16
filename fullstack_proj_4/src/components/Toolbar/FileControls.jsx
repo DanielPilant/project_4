@@ -25,7 +25,7 @@ function FileControls({
       >
         <option value="">-- Select File --</option>
         {savedFiles.map((f) => (
-          <option>{f}</option>
+          <option value={f}>{f}</option>
         ))}
       </select>
 
