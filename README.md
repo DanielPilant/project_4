@@ -1,5 +1,8 @@
 # Visual Text Editor - Full Stack Project (4/7)
 
+<img width="959" height="831" alt="image" src="https://github.com/user-attachments/assets/3f37ee5d-b617-475c-a669-6ef611bf6192" />
+
+
 ## Overview
 This project is a React-based "Visual Text Editor". It was developed as Project 4 out of 7 in an academic Full Stack development program. The application provides a rich text editing experience with a custom virtual keyboard, multi-document management, and user authentication.
 
